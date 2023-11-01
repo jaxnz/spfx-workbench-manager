@@ -1,7 +1,7 @@
 chrome.tabs.onActivated.addListener(tab => {
     getTab().then(url => {
         console.log(url);
-        if (url.endsWith('_layouts/15/workbench.aspx')) {
+        if (url.split('#')[0].endsWith('_layouts/15/workbench.aspx')) {
             chrome.scripting.executeScript({
                 target: { tabId: tab.tabId, allFrames: true },
                 files: ['./foreground.js'],
@@ -13,7 +13,7 @@ chrome.tabs.onActivated.addListener(tab => {
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
         getTab().then(url => {
-            if (url.endsWith('_layouts/15/workbench.aspx')) {
+            if (url.split('#')[0].endsWith('_layouts/15/workbench.aspx')) {
                 chrome.scripting.executeScript({
                     target: { tabId: tabId, allFrames: true },
                     files: ['./foreground.js'],
